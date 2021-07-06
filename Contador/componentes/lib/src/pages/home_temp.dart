@@ -28,7 +28,7 @@ class HomePageTemp extends StatelessWidget {
     );
   }
 
-  List<Widget> _crearItems() {
+  /*  List<Widget> _crearItems() {
     List<Widget> lista = [];
     for (String opt in opciones) {
       final tempWidget = ListTile(
@@ -38,7 +38,7 @@ class HomePageTemp extends StatelessWidget {
     }
 
     return lista;
-  }
+  } */
 
   List<Widget> _crearItemsCorto() {
     return opciones.map((item) {
