@@ -13,25 +13,40 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _lista() {
-    print(menuProvider.opciones);
-    return ListView(
-      children: _listItems(),
+    /* menuProvider.cargarData() */
+
+    return FutureBuilder(
+      future: menuProvider.cargarData(),
+      initialData: [],
+      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text('Error'));
+        }
+
+        if (!snapshot.hasData) {
+          return Center(child: Text('No hay data'));
+        }
+
+        return ListView(
+          children: _listItems(snapshot.data),
+        );
+      },
     );
+
+/*     return  */
   }
 
-  List<Widget> _listItems() {
-    return [
-      ListTile(title: Text('Hola mundo')),
-      Divider(),
-      ListTile(title: Text('Hola mundo')),
-      Divider(),
-      ListTile(title: Text('Hola mundo')),
-      Divider(),
-      ListTile(title: Text('Hola mundo')),
-      Divider(),
-      ListTile(title: Text('Hola mundo')),
-      Divider(),
-      ListTile(title: Text('Hola mundo')),
-    ];
+  List<Widget> _listItems(List<dynamic>? data) {
+    final List<Widget> opciones = [];
+    data?.forEach((opt) {
+      final widgetTemp = ListTile(
+        title: Text(opt['texto']),
+        leading: Icon(Icons.account_circle, color: Colors.blue),
+        trailing: Icon(Icons.keyboard_arrow_right, color: Colors.blue),
+        onTap: () {},
+      );
+      opciones.add(widgetTemp);
+    });
+    return opciones;
   }
 }
